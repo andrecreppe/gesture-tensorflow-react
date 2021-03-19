@@ -80,3 +80,5 @@ Load graph model from url - DONE
 Make detections and cleanup - DONE
 Create drawing function and labelmap - DONE
 Draw to the canvas using requestAnimationFrame - DONE
+
+1. Change URL in App.js

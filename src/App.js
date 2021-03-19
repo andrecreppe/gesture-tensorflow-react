@@ -1,26 +1,23 @@
-// Import dependencies
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import * as tf from "@tensorflow/tfjs";
-// 1. TODO - Import required model here
-// e.g. import * as tfmodel from "@tensorflow-models/tfmodel";
 import Webcam from "react-webcam";
 import "./App.css";
-// 2. TODO - Import drawing utility here
-// e.g. import { drawRect } from "./utilities";
 
 function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
-  // Main function
   const runCoco = async () => {
-    // 3. TODO - Load network 
-    // e.g. const net = await cocossd.load();
+    // Loading model from the network
+    const modelURL = 'https://tensorflowjs-model.s3.us-south.cloud-object-storage.appdomain.cloud/model.json';
+    const net = await tf.loadGraphModel(modelURL);
     
-    //  Loop and detect hands
+    const detectionSpeed = 16.7;
+
+    // Detection
     setInterval(() => {
       detect(net);
-    }, 10);
+    }, detectionSpeed);
   };
 
   const detect = async (net) => {
@@ -43,18 +40,31 @@ function App() {
       canvasRef.current.width = videoWidth;
       canvasRef.current.height = videoHeight;
 
-      // 4. TODO - Make Detections
-      // e.g. const obj = await net.detect(video);
+      // Make Detections
+      const img = tf.browser.fromPixels(video);
+      const resized = tf.image.resizeBilinear(img, [640, 480]);
+      const casted = resized.cast('int32');
+      const expanded = casted.expandDims(0);
+      const obj = await net.executeAsync(expanded);
 
       // Draw mesh
       const ctx = canvasRef.current.getContext("2d");
 
       // 5. TODO - Update drawing utility
-      // drawSomething(obj, ctx)  
+      // drawSomething(obj, ctx) 
+      
+      // Memory cleanup
+      tf.dispose(img)
+      tf.dispose(resized)
+      tf.dispose(casted)
+      tf.dispose(expanded)
+      tf.dispose(obj)
     }
   };
 
-  useEffect(()=>{runCoco()},[]);
+  useEffect(() => {
+    runCoco()
+  }, []);
 
   return (
     <div className="App">
