@@ -1,7 +1,8 @@
-import React, { useRef, useEffect } from "react";
-import * as tf from "@tensorflow/tfjs";
-import Webcam from "react-webcam";
-import "./App.css";
+import React, { useRef, useEffect } from 'react';
+import * as tf from '@tensorflow/tfjs';
+import Webcam from 'react-webcam';
+import './App.css';
+import * as utilities from './utilities';
 
 function App() {
   const webcamRef = useRef(null);
@@ -23,7 +24,7 @@ function App() {
   const detect = async (net) => {
     // Check data is available
     if (
-      typeof webcamRef.current !== "undefined" &&
+      typeof webcamRef.current !== 'undefined' &&
       webcamRef.current !== null &&
       webcamRef.current.video.readyState === 4
     ) {
@@ -46,12 +47,15 @@ function App() {
       const casted = resized.cast('int32');
       const expanded = casted.expandDims(0);
       const obj = await net.executeAsync(expanded);
+      const boxes = await obj[1].array();
+      const classes = await obj[2].array();
+      const scores = await obj[4].array();
 
       // Draw mesh
-      const ctx = canvasRef.current.getContext("2d");
-
-      // 5. TODO - Update drawing utility
-      // drawSomething(obj, ctx) 
+      const ctx = canvasRef.current.getContext('2d');
+      requestAnimationFrame(() => {
+        utilities.drawRect(boxes[0], classes[0], scores[0], 0.8, videoWidth, videoHeight, ctx);
+      })
       
       // Memory cleanup
       tf.dispose(img)
@@ -67,18 +71,18 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className='App'>
+      <header className='App-header'>
         <Webcam
           ref={webcamRef}
           muted={true} 
           style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
+            position: 'absolute',
+            marginLeft: 'auto',
+            marginRight: 'auto',
             left: 0,
             right: 0,
-            textAlign: "center",
+            textAlign: 'center',
             zindex: 9,
             width: 640,
             height: 480,
@@ -88,12 +92,12 @@ function App() {
         <canvas
           ref={canvasRef}
           style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
+            position: 'absolute',
+            marginLeft: 'auto',
+            marginRight: 'auto',
             left: 0,
             right: 0,
-            textAlign: "center",
+            textAlign: 'center',
             zindex: 8,
             width: 640,
             height: 480,
