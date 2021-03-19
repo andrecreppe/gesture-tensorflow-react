@@ -82,3 +82,5 @@ Create drawing function and labelmap - DONE
 Draw to the canvas using requestAnimationFrame - DONE
 
 1. Change URL in App.js
+
+npm run build
