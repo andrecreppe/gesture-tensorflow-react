@@ -8,7 +8,7 @@ function App() {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const runCoco = async () => {
+  const runApp = async () => {
     // Loading model from the network
     const modelURL = 'https://tensorflowjs-model.s3.us-south.cloud-object-storage.appdomain.cloud/model.json';
     const net = await tf.loadGraphModel(modelURL);
@@ -67,44 +67,60 @@ function App() {
   };
 
   useEffect(() => {
-    runCoco()
+    runApp()
   }, []);
 
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <Webcam
-          ref={webcamRef}
-          muted={true} 
-          style={{
+    <>
+      <div className='App'>
+        <header className='App-header'>
+          <h2 style={{
             position: 'absolute',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            left: 0,
-            right: 0,
-            textAlign: 'center',
-            zindex: 9,
-            width: 640,
-            height: 480,
-          }}
-        />
+            marginTop: '-800px'
+          }}>Gesture detection - TensorflowJS</h2>
 
-        <canvas
-          ref={canvasRef}
-          style={{
-            position: 'absolute',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            left: 0,
-            right: 0,
-            textAlign: 'center',
-            zindex: 8,
-            width: 640,
-            height: 480,
-          }}
-        />
-      </header>
-    </div>
+          <a 
+            href='https://github.com/andrecreppe/gesture-tensorflow-react' 
+            style={{
+              position: 'absolute',
+              marginTop: '-650px',
+              fontSize: 30,
+              color: 'red'
+            }}>GitHub code</a>
+          
+          <Webcam
+            ref={webcamRef}
+            muted={true} 
+            style={{
+              position: 'absolute',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              left: 0,
+              right: 0,
+              textAlign: 'center',
+              zindex: 9,
+              width: 640,
+              height: 480,
+            }}
+          />
+
+          <canvas
+            ref={canvasRef}
+            style={{
+              position: 'absolute',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              left: 0,
+              right: 0,
+              textAlign: 'center',
+              zindex: 8,
+              width: 640,
+              height: 480,
+            }}
+          />
+        </header>
+      </div>
+    </>
   );
 }
 

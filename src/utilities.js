@@ -30,12 +30,12 @@ export const drawRect = (boxes, classes, scores, threshold, imgWidth, imgHeight,
       const text = classes[i];
 
       ctx.strokeStyle = labelMap[text]['color'];
-      ctx.linewidth = 10;
+      ctx.lineWidth = 2;
       ctx.fillStyle = 'white';
-      ctx.font = '30px Arial';
+      ctx.font = '30px Consolas';
 
       ctx.beginPath();
-      ctx.fillText(`${labelMap[text]['name']} - ${Math.round(scores[i]*100)/100}`, x*imgWidth, y*imgHeight-10);
+      ctx.fillText(`${labelMap[text]['name']} - ${Math.round(scores[i]*100)}%`, x*imgWidth, y*imgHeight-10);
       ctx.rect(x*imgWidth, y*imgHeight, width*imgWidth/2, height*imgHeight/1.5);
       ctx.stroke();
     }
