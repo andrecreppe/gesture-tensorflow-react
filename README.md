@@ -1,86 +1,87 @@
-# Getting Started with Create React App
+# gesture-tensorflow-react
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Real Time Sign Language Detection App with ReactJS and TensorflowJS. [Try it!](https://tensorflow-recognition.web.app/)
 
-## Available Scripts
+![Execution example](https://github.com/andrecreppe/gesture-tensorflow-react/blob/main/images/example.png?raw=true)
 
-In the project directory, you can run:
+## 📦 Installation
 
-### `npm start`
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In order to run it, is necessary to install all of the used dependencies/packages using npm:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+$ npm install
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+No ordinary installation is also required.
 
-### `npm test`
+## 📐 Developing
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+In order to run the application in development mode, start the application using:
 
-### `npm run build`
+```bash
+$ npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Once compiled, it should open a new tab at [http://localhost:3000](http://localhost:3000) in the default browser. This page will reload if you edit the code and also warn about any lint errors in the console.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Recognition graph model 
+
+This application uses a *model.json* file that represents a exported trained model hosted in a online serve.
+
+All the export information necessary to upload and make this file available can be found in the [gesture-tensorflow](https://github.com/andrecreppe/gesture-tensorflow) project repository.
+
+If you have your own model, simply change the `modelURL` variable to your needs inside `src/App.js` file.
+
+## 🚀 Building
+
+Once the application is ready, you can make a build to distribuite it using this command:
+
+```bash
+$ npm run build
+```
+
+It Builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes. Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## 🔥 Deploy with Firebase Hosting
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This project was deployed using Firebase Hosting. To do that you first need to have installed the [Firebase CLI](https://firebase.google.com/docs/cli) to run the Firebase commands. You can do that using:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+$ npm install -g firebase-tools
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+After the installation, you need to sign in via cmd using your Firebase account credentials:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+$ firebase login
+```
 
-## Learn More
+Now is the time to initialize the CLI in your project. In the root folder, initiate the firebase:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+$ firebase init
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Doing so, now you will need to answer a few questions about your deploy configuration. For this project (React) was used:
+- `Firebase CLI features` > Hosting
+- `Database rules file` > (Just press enter and accept it)
+- `Public directory` > build
+- `Configure as single-page app` > Yes
+- `Overwrite index.html` > No
 
-### Code Splitting
+After configuring your app, to upload into the Firebase servers just run the following:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+$ firebase deploy
+``` 
 
-### Analyzing the Bundle Size
+If no errors were shown, your website is now online and you can check the link shown by the cmd. For updates in this project, just rebuild the application and run the deploy command.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📚 Source
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-============================
-
-To Do
-Export and Convert Python Model - DONE
-Host model on Cloud Object Storage - DONE
-Clone computer vision template - DONE
-Install and update dependencies - DONE
-Load graph model from url - DONE
-Make detections and cleanup - DONE
-Create drawing function and labelmap - DONE
-Draw to the canvas using requestAnimationFrame - DONE
-
-1. Change URL in App.js
-
-npm run build
+This code was based from the follwing **Nicholas Renotte** tutorial on YouTube:
+- [Building a Real Time Sign Language Detection App with React.JS and Tensorflow.JS | Deep Learning](https://youtu.be/ZTSRZt04JkY)
